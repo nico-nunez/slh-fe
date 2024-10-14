@@ -36,7 +36,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const isAuthenticated = !!user;
 
     const logout = useCallback(async () => {
-        console.log('logging out.....');
         await sleep(1000);
 
         setStoredUser(null);

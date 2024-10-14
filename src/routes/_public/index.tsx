@@ -1,23 +1,33 @@
-import { redirect, createFileRoute } from '@tanstack/react-router';
+import { useEffect } from 'react';
+import { DEFAULT_ROUTE } from '../../constants';
+import { createFileRoute } from '@tanstack/react-router';
 
-const fallback = '/dashboard';
+// STATE
+import { useAuth } from '../../contexts';
 
+// ROUTING
 export const Route = createFileRoute('/_public/')({
-    beforeLoad: ({ context, search }) => {
-        console.log('got to home');
-        console.log('[/] context:', context);
-        const redirectPath = search.redirect || fallback;
+    component: Home,
+});
 
-        if (context.auth?.isAuthenticated) {
-            throw redirect({ to: redirectPath });
-        } else {
-            throw redirect({
+// HOME PAGE
+function Home() {
+    const { redirect } = Route.useSearch();
+    const { isAuthenticated } = useAuth();
+    const navigate = Route.useNavigate();
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate({
                 to: '/login',
                 search: {
-                    redirect: search.redirect || fallback,
+                    redirect: redirect || DEFAULT_ROUTE,
                 },
             });
+        } else {
+            navigate({ to: redirect || DEFAULT_ROUTE });
         }
-    },
-    component: () => <div />,
-});
+    }, [isAuthenticated, redirect]);
+
+    return null;
+}

@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
 import {
     useRouter,
     useRouterState,
     createFileRoute,
 } from '@tanstack/react-router';
+import { useEffect, useState } from 'react';
 
-import { z } from 'zod';
+import { DEFAULT_ROUTE } from '../../constants';
+
+// STATE
 import { useAuth } from '../../contexts';
+
+// UTILS
+import { z } from 'zod';
 
 type LoginFormState = {
     email: string;
@@ -18,6 +23,7 @@ const DEFAULT_STATE: LoginFormState = {
     password: '',
 };
 
+// ROUTING
 export const Route = createFileRoute('/_public/login')({
     validateSearch: z.object({
         redirect: z.string().optional().catch(''),
@@ -25,6 +31,7 @@ export const Route = createFileRoute('/_public/login')({
     component: LoginForm,
 });
 
+// LOGIN PAGE
 function LoginForm() {
     const router = useRouter();
     const { isAuthenticated, login } = useAuth();
@@ -35,11 +42,9 @@ function LoginForm() {
     const search = Route.useSearch();
     const [state, setState] = useState<LoginFormState>({ ...DEFAULT_STATE });
 
-    console.log('[/login] isAuthenticated:', isAuthenticated);
     useEffect(() => {
         if (isAuthenticated) {
-            console.log('navigating to:', search.redirect);
-            navigate({ to: search.redirect || '/dashboard' });
+            navigate({ to: search.redirect || DEFAULT_ROUTE });
         }
     }, [isAuthenticated]);
 
@@ -74,7 +79,7 @@ function LoginForm() {
 
             await router.invalidate();
 
-            await navigate({ to: search.redirect || '/dashboard' });
+            await navigate({ to: search.redirect || DEFAULT_ROUTE });
         } catch (error) {
             console.error('Error logging in: ', error);
         } finally {

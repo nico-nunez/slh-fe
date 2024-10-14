@@ -13,10 +13,12 @@ const DEFAULT_STATE: RegistrationFormState = {
     confirmPassword: '',
 };
 
+// ROUTING
 export const Route = createFileRoute('/_public/registration')({
     component: Registration,
 });
 
+// REGISTRATION PAGE
 function Registration() {
     const navigate = Route.useNavigate();
     const [state, setState] = useState<RegistrationFormState>({
@@ -37,8 +39,6 @@ function Registration() {
     // Handle form submission - TODO
     const onSubmit = (evt: React.FormEvent) => {
         evt.preventDefault();
-
-        console.log('submit registration....');
         console.log(state);
     };
 

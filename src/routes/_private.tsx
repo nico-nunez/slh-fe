@@ -4,38 +4,43 @@ import {
     useRouter,
     createFileRoute,
 } from '@tanstack/react-router';
+import { useEffect } from 'react';
+import { DEFAULT_ROUTE } from '../constants';
 
+// STATE
+import { useAuth } from '../contexts';
+
+// UTILS
 import { z } from 'zod';
 
-import { useAuth } from '../contexts';
-import { useEffect } from 'react';
-
+// ROUTING
 export const Route = createFileRoute('/_private')({
     validateSearch: z.object({
         redirect: z.string().optional().catch(''),
     }),
-    component: AuthLayout,
+    component: PrivateLayout,
 });
 
-function AuthLayout() {
+// PRIVATE LAYOUT (PATHLESS)
+function PrivateLayout() {
     const router = useRouter();
     const search = Route.useSearch();
     const navigate = Route.useNavigate();
     const { isAuthenticated, logout } = useAuth();
 
+    // Check auth and redirect to login if necessary
     useEffect(() => {
-        console.log('[/_private] isAuthenticated:', isAuthenticated);
         if (!isAuthenticated) {
-            console.log('redirecting to login....');
             navigate({
                 to: '/login',
                 search: {
-                    redirect: search.redirect || '/dashboard',
+                    redirect: search.redirect || DEFAULT_ROUTE,
                 },
             });
         }
     }, [isAuthenticated]);
 
+    // Handle logout
     const handleLogout = async () => {
         if (window.confirm('Are you sure you want to logout?')) {
             await logout();
@@ -46,8 +51,7 @@ function AuthLayout() {
         }
     };
 
-    console.log('private rendered...');
-
+    // JSX
     return (
         <div className="h-full p-2">
             <h1>Authenticated Route</h1>
@@ -55,7 +59,7 @@ function AuthLayout() {
             <ul className="flex gap-2 py-2">
                 <li>
                     <Link
-                        to="/dashboard"
+                        to={DEFAULT_ROUTE}
                         className="hover:underline data-[status='active']:font-semibold"
                     >
                         Dashboard
