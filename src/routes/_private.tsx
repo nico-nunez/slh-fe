@@ -12,6 +12,7 @@ import { useAuth } from '../contexts';
 
 // UTILS
 import { z } from 'zod';
+import Navbar from '../components/Navbar';
 
 // ROUTING
 export const Route = createFileRoute('/_private')({
@@ -53,30 +54,11 @@ function PrivateLayout() {
 
     // JSX
     return (
-        <div className="h-full p-2">
-            <h1>Authenticated Route</h1>
-            <p>This route's content is only visible to authenticated users.</p>
-            <ul className="flex gap-2 py-2">
-                <li>
-                    <Link
-                        to={DEFAULT_ROUTE}
-                        className="hover:underline data-[status='active']:font-semibold"
-                    >
-                        Dashboard
-                    </Link>
-                </li>
-                <li>
-                    <button
-                        type="button"
-                        className="hover:underline"
-                        onClick={handleLogout}
-                    >
-                        Logout
-                    </button>
-                </li>
-            </ul>
-            <hr />
-            <Outlet />
+        <div>
+            <Navbar />
+            <section className="p-4">
+                <Outlet />
+            </section>
         </div>
     );
 }

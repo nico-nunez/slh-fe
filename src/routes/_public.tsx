@@ -14,8 +14,8 @@ export const Route = createFileRoute('/_public')({
 // PUBLIC LAYOUT (PATHLESS)
 function PublicLayout() {
     return (
-        <div className="absolute left-1/2 top-1/3 flex w-96 -translate-x-1/2 -translate-y-1/3 flex-col gap-4 text-center">
-            <h1 className="capitalize">santa's lil' helper</h1>
+        <div className="prose absolute left-1/2 top-1/3 flex w-96 -translate-x-1/2 -translate-y-1/3 flex-col text-center">
+            <h1 className="prose-h1: mb-4 capitalize">santa's lil' helper</h1>
             <Outlet />
         </div>
     );

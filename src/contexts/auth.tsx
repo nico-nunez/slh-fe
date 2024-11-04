@@ -6,11 +6,11 @@ import {
     createContext,
 } from 'react';
 
-import { sleep } from '../utils';
+import { loginUser, logoutUser } from '../apis';
 
 export interface AuthContext {
     isAuthenticated: boolean;
-    login: (username: string) => Promise<void>;
+    login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
     user: string | null;
 }
@@ -25,7 +25,7 @@ function getStoredUser() {
 
 function setStoredUser(user: string | null) {
     if (user) {
-        localStorage.setItem(key, user);
+        localStorage.setItem(key, JSON.stringify(user));
     } else {
         localStorage.removeItem(key);
     }
@@ -36,17 +36,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const isAuthenticated = !!user;
 
     const logout = useCallback(async () => {
-        await sleep(1000);
+        const res = await logoutUser();
 
+        console.log(res);
         setStoredUser(null);
         setUser(null);
     }, []);
 
-    const login = useCallback(async (username: string) => {
-        await sleep(500);
-
-        setStoredUser(username);
-        setUser(username);
+    const login = useCallback(async (email: string, password: string) => {
+        const user = await loginUser(email, password);
+        console.log(user);
+        setStoredUser(user);
+        setUser(user);
     }, []);
 
     useEffect(() => {

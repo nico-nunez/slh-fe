@@ -71,11 +71,12 @@ function LoginForm() {
         try {
             evt.preventDefault();
             const data = new FormData(evt.currentTarget);
-            const fieldValue = data.get('email');
+            const email = data.get('email')?.toString();
+            const password = data.get('password')?.toString();
 
-            if (!fieldValue) return;
-            const email = fieldValue.toString();
-            await login(email);
+            if (!email || !password) return;
+
+            await login(email, password);
 
             await router.invalidate();
 
@@ -92,17 +93,18 @@ function LoginForm() {
     // JSX
     return (
         <div>
-            <form className="px-8" onSubmit={onFormSubmit} id="landing-form">
-                <fieldset
-                    disabled={isLoggingIn}
-                    className="flex flex-col gap-4 border-gray-400 text-left"
-                >
-                    <div className="flex flex-col gap-2">
-                        <label className="text-gray-500" htmlFor="email">
+            <form
+                className="form-control"
+                onSubmit={onFormSubmit}
+                id="landing-form"
+            >
+                <fieldset disabled={isLoggingIn} className="flex flex-col">
+                    <div className="flex flex-col">
+                        <label className="label" htmlFor="email">
                             Email:
                         </label>
                         <input
-                            className="h-10 rounded-lg px-2"
+                            className="input input-bordered"
                             name="email"
                             type="email"
                             placeholder="santa@northpole.com"
@@ -111,12 +113,12 @@ function LoginForm() {
                             required
                         />
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <label className="text-gray-500" htmlFor="password">
+                    <div className="flex flex-col">
+                        <label className="label" htmlFor="password">
                             Password:
                         </label>
                         <input
-                            className="h-10 rounded-lg px-2"
+                            className="input input-bordered"
                             placeholder="********"
                             type="password"
                             name="password"
@@ -126,30 +128,26 @@ function LoginForm() {
                         />
                     </div>
                 </fieldset>
-                <div className="flex justify-between">
-                    <a
-                        className="text-sm italic text-blue-500"
-                        onClick={onClickRegister}
-                    >
-                        register
-                    </a>
-                    <a
-                        className="text-sm italic text-blue-500"
-                        onClick={onClickForgotPassword}
-                    >
-                        forgot password
-                    </a>
+                <div className="flex flex-col gap-4 pt-4">
+                    <div className="flex justify-between">
+                        <a className="link" onClick={onClickRegister}>
+                            register
+                        </a>
+                        <a className="link" onClick={onClickForgotPassword}>
+                            forgot password
+                        </a>
+                    </div>
+                    <div className="flex justify-center gap-4">
+                        <button
+                            form="landing-form"
+                            type="submit"
+                            className="btn"
+                        >
+                            Login
+                        </button>
+                    </div>
                 </div>
             </form>
-            <div className="flex justify-center gap-4">
-                <button
-                    form="landing-form"
-                    type="submit"
-                    className="text-lg text-gray-600"
-                >
-                    Login
-                </button>
-            </div>
         </div>
     );
 }
