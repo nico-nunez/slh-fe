@@ -12,7 +12,7 @@ export interface AuthContext {
     isAuthenticated: boolean;
     login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
-    user: string | null;
+    user: UserData | null;
 }
 
 const AuthContext = createContext<AuthContext | null>(null);
@@ -20,10 +20,11 @@ const AuthContext = createContext<AuthContext | null>(null);
 const key = 'slh.auth.user';
 
 function getStoredUser() {
-    return localStorage.getItem(key);
+    const user = localStorage.getItem(key);
+    return user ? JSON.parse(user) : null;
 }
 
-function setStoredUser(user: string | null) {
+function setStoredUser(user: UserData | null) {
     if (user) {
         localStorage.setItem(key, JSON.stringify(user));
     } else {
@@ -32,7 +33,7 @@ function setStoredUser(user: string | null) {
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<string | null>(getStoredUser());
+    const [user, setUser] = useState<UserData | null>(getStoredUser());
     const isAuthenticated = !!user;
 
     const logout = useCallback(async () => {
@@ -44,8 +45,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const login = useCallback(async (email: string, password: string) => {
-        const user = await loginUser(email, password);
-        console.log(user);
+        const { user } = await loginUser(email, password);
         setStoredUser(user);
         setUser(user);
     }, []);
@@ -61,7 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
 }
 
-export function useAuth() {
+export function useAuthContext() {
     const context = useContext(AuthContext);
     if (!context) {
         throw new Error('useAuth must be used within an AuthProvider');

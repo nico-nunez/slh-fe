@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { DEFAULT_ROUTE } from '../../constants';
 
 // STATE
-import { useAuth } from '../../contexts';
+import { useAuthContext } from '../../contexts';
 
 // UTILS
 import { z } from 'zod';
@@ -34,8 +34,8 @@ export const Route = createFileRoute('/_public/login')({
 // LOGIN PAGE
 function LoginForm() {
     const router = useRouter();
-    const { isAuthenticated, login } = useAuth();
     const navigate = Route.useNavigate();
+    const { isAuthenticated, login } = useAuthContext();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const isLoading = useRouterState({ select: (s) => s.isLoading });
 

@@ -1,7 +1,10 @@
-import { useAuth } from '../contexts';
+import { useAuthContext } from '../contexts';
+
+const DEFAULT_AVATAR =
+    'https://santas-lil-helper-app.s3.us-east-2.amazonaws.com/images/avatars/profile/penguin-min.png';
 
 function Navbar() {
-    const { logout } = useAuth();
+    const { user, logout } = useAuthContext();
 
     // JSX
     return (
@@ -13,7 +16,7 @@ function Navbar() {
                 <div role="button" tabIndex={0}>
                     <img
                         className="h-12 w-12"
-                        src="https://santas-lil-helper-app.s3.us-east-2.amazonaws.com/images/avatars/profile/penguin-min.png"
+                        src={user?.avatar || DEFAULT_AVATAR}
                         alt="avatar"
                     />
                 </div>

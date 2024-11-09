@@ -1,8 +1,8 @@
 import './index.css';
 
 import { StrictMode } from 'react';
-import { AuthProvider, useAuth } from './contexts';
 import { createRoot } from 'react-dom/client';
+import { AuthProvider, useAuthContext } from './contexts';
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
@@ -24,7 +24,7 @@ declare module '@tanstack/react-router' {
 }
 
 function InnerApp() {
-    const auth = useAuth();
+    const auth = useAuthContext();
     return <RouterProvider router={router} context={{ auth }} />;
 }
 

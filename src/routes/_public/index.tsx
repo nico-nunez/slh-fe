@@ -3,7 +3,7 @@ import { DEFAULT_ROUTE } from '../../constants';
 import { createFileRoute } from '@tanstack/react-router';
 
 // STATE
-import { useAuth } from '../../contexts';
+import { useAuthContext } from '../../contexts';
 
 // ROUTING
 export const Route = createFileRoute('/_public/')({
@@ -12,9 +12,9 @@ export const Route = createFileRoute('/_public/')({
 
 // HOME PAGE
 function Home() {
-    const { redirect } = Route.useSearch();
-    const { isAuthenticated } = useAuth();
     const navigate = Route.useNavigate();
+    const { redirect } = Route.useSearch();
+    const { isAuthenticated } = useAuthContext();
 
     useEffect(() => {
         if (!isAuthenticated) {
