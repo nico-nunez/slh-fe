@@ -5,7 +5,7 @@ import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [tsChecker({ typescript: true }), react(), TanStackRouterVite()],
+    plugins: [react(), tsChecker({ typescript: true }), TanStackRouterVite()],
     server: {
         port: 3000,
     },
