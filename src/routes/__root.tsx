@@ -3,6 +3,9 @@ import { Outlet, createRootRouteWithContext } from '@tanstack/react-router';
 
 import type { AuthContext } from '../contexts/auth';
 
+// COMPONENTS
+import Navbar from '../components/Navbar';
+
 interface MyRouterContext {
     auth: AuthContext | null;
 }
@@ -12,6 +15,7 @@ const isDevelopment = import.meta.env.MODE === 'development';
 export const Route = createRootRouteWithContext<MyRouterContext>()({
     component: () => (
         <main>
+            <Navbar />
             <Outlet />
             {isDevelopment ? (
                 <TanStackRouterDevtools

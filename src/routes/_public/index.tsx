@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { DEFAULT_ROUTE } from '../../constants';
+import { APP_ROUTES } from '../../constants';
 import { createFileRoute } from '@tanstack/react-router';
 
 // STATE
@@ -21,11 +21,11 @@ function Home() {
             navigate({
                 to: '/login',
                 search: {
-                    redirect: redirect || DEFAULT_ROUTE,
+                    redirect: redirect || APP_ROUTES.DEFAULT_ROUTE,
                 },
             });
         } else {
-            navigate({ to: redirect || DEFAULT_ROUTE });
+            navigate({ to: redirect || APP_ROUTES.DEFAULT_ROUTE });
         }
     }, [isAuthenticated, redirect]);
 

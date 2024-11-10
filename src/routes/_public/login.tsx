@@ -5,7 +5,7 @@ import {
 } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
-import { DEFAULT_ROUTE } from '../../constants';
+import { APP_ROUTES } from '../../constants';
 
 // STATE
 import { useAuthContext } from '../../contexts';
@@ -44,7 +44,7 @@ function LoginForm() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate({ to: search.redirect || DEFAULT_ROUTE });
+            navigate({ to: search.redirect || APP_ROUTES.DEFAULT_ROUTE });
         }
     }, [isAuthenticated]);
 
@@ -80,7 +80,7 @@ function LoginForm() {
 
             await router.invalidate();
 
-            await navigate({ to: search.redirect || DEFAULT_ROUTE });
+            await navigate({ to: search.redirect || APP_ROUTES.DEFAULT_ROUTE });
         } catch (error) {
             console.error('Error logging in: ', error);
         } finally {

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { DEFAULT_ROUTE } from '../constants';
+import { APP_ROUTES } from '../constants';
 import { Outlet, createFileRoute } from '@tanstack/react-router';
 
 // STATE
@@ -7,7 +7,6 @@ import { useAuthContext } from '../contexts';
 
 // UTILS
 import { z } from 'zod';
-import Navbar from '../components/Navbar';
 
 // ROUTING
 export const Route = createFileRoute('/_private')({
@@ -29,7 +28,7 @@ function PrivateLayout() {
             navigate({
                 to: '/login',
                 search: {
-                    redirect: search.redirect || DEFAULT_ROUTE,
+                    redirect: search.redirect || APP_ROUTES.DEFAULT_ROUTE,
                 },
             });
         }
@@ -38,7 +37,6 @@ function PrivateLayout() {
     // JSX
     return (
         <div>
-            <Navbar />
             <section className="p-4">
                 <Outlet />
             </section>
