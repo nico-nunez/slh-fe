@@ -1,0 +1,4 @@
+.icon-notification {
+    content: url('./notification-bell-svgrepo-com.svg');
+    cursor: pointer;
+}
