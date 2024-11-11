@@ -1,10 +1,15 @@
 export const API_ROUTES = {
-    auth: '/auth',
+    AUTH: '/auth',
+    USERS: '/users',
 
     get LOGIN() {
-        return this.auth + '/login';
+        return this.AUTH + '/login';
     },
     get LOGOUT() {
-        return this.auth + '/logout';
+        return this.AUTH + '/logout';
+    },
+
+    get USER_DASHBOARD() {
+        return this.USERS + '/dashboard';
     },
 };

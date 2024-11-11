@@ -1,5 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { useAuthContext } from '../../contexts';
+import { useQuery } from '@tanstack/react-query';
+import { getDashboardData } from '../../apis';
 
 export const Route = createFileRoute('/_private/dashboard')({
     component: () => <Dashboard />,
@@ -7,17 +9,21 @@ export const Route = createFileRoute('/_private/dashboard')({
 
 function Dashboard() {
     const { user } = useAuthContext();
+    const { data } = useQuery({
+        queryKey: [user?.id],
+        queryFn: getDashboardData,
+    });
 
     return user ? (
         <section>
-            <div className="flex flex-col gap-8 md:flex-row md:justify-between">
+            <div className="flex flex-col gap-4 md:flex-row md:justify-between">
                 <section>
                     <div className="flex flex-col gap-4">
-                        <div className="max-h-42 max-w-42">
+                        <div className="max-h-42 max-w-42 m-auto">
                             {user.avatar ? <img src={user.avatar} /> : null}
                         </div>
                         <article className="prose text-center">
-                            <h1>{user.displayName}</h1>
+                            <h2>{user.displayName}</h2>
                         </article>
                         <div className="divider"></div>
                     </div>
@@ -25,7 +31,13 @@ function Dashboard() {
                         <h4>Notifications</h4>
                     </article>
                     <ul>
-                        <li>...Notifications</li>
+                        {user.notifications.map((notification) => (
+                            <li className="card">
+                                <div className="card-body rounded">
+                                    {notification.content}
+                                </div>
+                            </li>
+                        ))}
                     </ul>
                 </section>
 
@@ -38,7 +50,9 @@ function Dashboard() {
                             <button className="btn btn-ghost">New</button>
                         </article>
                         <ul>
-                            <li>...lists</li>
+                            {data?.lists.map((list) => (
+                                <Link key={list._id}>{list.title}</Link>
+                            ))}
                         </ul>
                     </div>
 
@@ -50,7 +64,9 @@ function Dashboard() {
                             <button className="btn btn-ghost">New</button>
                         </article>
                         <ul>
-                            <li>...parties</li>
+                            {data?.parties.map((party) => (
+                                <Link key={party._id}>{party.title}</Link>
+                            ))}
                         </ul>
                     </div>
 

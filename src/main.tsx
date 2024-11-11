@@ -7,6 +7,7 @@ import { AuthProvider, useAuthContext } from './contexts';
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Create a new router instance
 const router = createRouter({
@@ -28,6 +29,8 @@ function InnerApp() {
     return <RouterProvider router={router} context={{ auth }} />;
 }
 
+const queryClient = new QueryClient();
+
 function App() {
     return (
         <AuthProvider>
@@ -38,6 +41,8 @@ function App() {
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <App />
+        <QueryClientProvider client={queryClient}>
+            <App />
+        </QueryClientProvider>
     </StrictMode>
 );
