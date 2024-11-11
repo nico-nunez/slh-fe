@@ -1,6 +1,6 @@
 export const API_ROUTES = {
-    AUTH: '/auth',
-    USERS: '/users',
+    AUTH: '/api/auth',
+    USERS: '/api/users',
 
     get LOGIN() {
         return this.AUTH + '/login';

@@ -50,7 +50,7 @@ function Dashboard() {
                             <button className="btn btn-ghost">New</button>
                         </article>
                         <ul>
-                            {data?.lists.map((list) => (
+                            {data?.lists?.map((list) => (
                                 <Link key={list._id}>{list.title}</Link>
                             ))}
                         </ul>
@@ -64,7 +64,7 @@ function Dashboard() {
                             <button className="btn btn-ghost">New</button>
                         </article>
                         <ul>
-                            {data?.parties.map((party) => (
+                            {data?.parties?.map((party) => (
                                 <Link key={party._id}>{party.title}</Link>
                             ))}
                         </ul>
