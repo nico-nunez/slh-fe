@@ -17,8 +17,11 @@ import { Route as PublicIndexImport } from './routes/_public/index'
 import { Route as PublicRegistrationImport } from './routes/_public/registration'
 import { Route as PublicLoginImport } from './routes/_public/login'
 import { Route as PublicForgotPasswordImport } from './routes/_public/forgot-password'
-import { Route as PrivateFooImport } from './routes/_private/foo'
 import { Route as PrivateDashboardImport } from './routes/_private/dashboard'
+import { Route as PrivateListsIndexImport } from './routes/_private/lists/index'
+import { Route as PrivateListsNewImport } from './routes/_private/lists/new'
+import { Route as PrivateListsListIdIndexImport } from './routes/_private/lists/$listId/index'
+import { Route as PrivateListsListIdEditImport } from './routes/_private/lists/$listId/edit'
 
 // Create/Update Routes
 
@@ -52,13 +55,28 @@ const PublicForgotPasswordRoute = PublicForgotPasswordImport.update({
   getParentRoute: () => PublicRoute,
 } as any)
 
-const PrivateFooRoute = PrivateFooImport.update({
-  path: '/foo',
+const PrivateDashboardRoute = PrivateDashboardImport.update({
+  path: '/dashboard',
   getParentRoute: () => PrivateRoute,
 } as any)
 
-const PrivateDashboardRoute = PrivateDashboardImport.update({
-  path: '/dashboard',
+const PrivateListsIndexRoute = PrivateListsIndexImport.update({
+  path: '/lists/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateListsNewRoute = PrivateListsNewImport.update({
+  path: '/lists/new',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateListsListIdIndexRoute = PrivateListsListIdIndexImport.update({
+  path: '/lists/$listId/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateListsListIdEditRoute = PrivateListsListIdEditImport.update({
+  path: '/lists/$listId/edit',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -85,13 +103,6 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof PrivateDashboardImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/foo': {
-      id: '/_private/foo'
-      path: '/foo'
-      fullPath: '/foo'
-      preLoaderRoute: typeof PrivateFooImport
       parentRoute: typeof PrivateImport
     }
     '/_public/forgot-password': {
@@ -122,6 +133,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexImport
       parentRoute: typeof PublicImport
     }
+    '/_private/lists/new': {
+      id: '/_private/lists/new'
+      path: '/lists/new'
+      fullPath: '/lists/new'
+      preLoaderRoute: typeof PrivateListsNewImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/lists/': {
+      id: '/_private/lists/'
+      path: '/lists'
+      fullPath: '/lists'
+      preLoaderRoute: typeof PrivateListsIndexImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/lists/$listId/edit': {
+      id: '/_private/lists/$listId/edit'
+      path: '/lists/$listId/edit'
+      fullPath: '/lists/$listId/edit'
+      preLoaderRoute: typeof PrivateListsListIdEditImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/lists/$listId/': {
+      id: '/_private/lists/$listId/'
+      path: '/lists/$listId'
+      fullPath: '/lists/$listId'
+      preLoaderRoute: typeof PrivateListsListIdIndexImport
+      parentRoute: typeof PrivateImport
+    }
   }
 }
 
@@ -129,12 +168,18 @@ declare module '@tanstack/react-router' {
 
 interface PrivateRouteChildren {
   PrivateDashboardRoute: typeof PrivateDashboardRoute
-  PrivateFooRoute: typeof PrivateFooRoute
+  PrivateListsNewRoute: typeof PrivateListsNewRoute
+  PrivateListsIndexRoute: typeof PrivateListsIndexRoute
+  PrivateListsListIdEditRoute: typeof PrivateListsListIdEditRoute
+  PrivateListsListIdIndexRoute: typeof PrivateListsListIdIndexRoute
 }
 
 const PrivateRouteChildren: PrivateRouteChildren = {
   PrivateDashboardRoute: PrivateDashboardRoute,
-  PrivateFooRoute: PrivateFooRoute,
+  PrivateListsNewRoute: PrivateListsNewRoute,
+  PrivateListsIndexRoute: PrivateListsIndexRoute,
+  PrivateListsListIdEditRoute: PrivateListsListIdEditRoute,
+  PrivateListsListIdIndexRoute: PrivateListsListIdIndexRoute,
 }
 
 const PrivateRouteWithChildren =
@@ -160,21 +205,27 @@ const PublicRouteWithChildren =
 export interface FileRoutesByFullPath {
   '': typeof PublicRouteWithChildren
   '/dashboard': typeof PrivateDashboardRoute
-  '/foo': typeof PrivateFooRoute
   '/forgot-password': typeof PublicForgotPasswordRoute
   '/login': typeof PublicLoginRoute
   '/registration': typeof PublicRegistrationRoute
   '/': typeof PublicIndexRoute
+  '/lists/new': typeof PrivateListsNewRoute
+  '/lists': typeof PrivateListsIndexRoute
+  '/lists/$listId/edit': typeof PrivateListsListIdEditRoute
+  '/lists/$listId': typeof PrivateListsListIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '': typeof PrivateRouteWithChildren
   '/dashboard': typeof PrivateDashboardRoute
-  '/foo': typeof PrivateFooRoute
   '/forgot-password': typeof PublicForgotPasswordRoute
   '/login': typeof PublicLoginRoute
   '/registration': typeof PublicRegistrationRoute
   '/': typeof PublicIndexRoute
+  '/lists/new': typeof PrivateListsNewRoute
+  '/lists': typeof PrivateListsIndexRoute
+  '/lists/$listId/edit': typeof PrivateListsListIdEditRoute
+  '/lists/$listId': typeof PrivateListsListIdIndexRoute
 }
 
 export interface FileRoutesById {
@@ -182,11 +233,14 @@ export interface FileRoutesById {
   '/_private': typeof PrivateRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
   '/_private/dashboard': typeof PrivateDashboardRoute
-  '/_private/foo': typeof PrivateFooRoute
   '/_public/forgot-password': typeof PublicForgotPasswordRoute
   '/_public/login': typeof PublicLoginRoute
   '/_public/registration': typeof PublicRegistrationRoute
   '/_public/': typeof PublicIndexRoute
+  '/_private/lists/new': typeof PrivateListsNewRoute
+  '/_private/lists/': typeof PrivateListsIndexRoute
+  '/_private/lists/$listId/edit': typeof PrivateListsListIdEditRoute
+  '/_private/lists/$listId/': typeof PrivateListsListIdIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -194,30 +248,39 @@ export interface FileRouteTypes {
   fullPaths:
     | ''
     | '/dashboard'
-    | '/foo'
     | '/forgot-password'
     | '/login'
     | '/registration'
     | '/'
+    | '/lists/new'
+    | '/lists'
+    | '/lists/$listId/edit'
+    | '/lists/$listId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
     | '/dashboard'
-    | '/foo'
     | '/forgot-password'
     | '/login'
     | '/registration'
     | '/'
+    | '/lists/new'
+    | '/lists'
+    | '/lists/$listId/edit'
+    | '/lists/$listId'
   id:
     | '__root__'
     | '/_private'
     | '/_public'
     | '/_private/dashboard'
-    | '/_private/foo'
     | '/_public/forgot-password'
     | '/_public/login'
     | '/_public/registration'
     | '/_public/'
+    | '/_private/lists/new'
+    | '/_private/lists/'
+    | '/_private/lists/$listId/edit'
+    | '/_private/lists/$listId/'
   fileRoutesById: FileRoutesById
 }
 
@@ -251,7 +314,10 @@ export const routeTree = rootRoute
       "filePath": "_private.tsx",
       "children": [
         "/_private/dashboard",
-        "/_private/foo"
+        "/_private/lists/new",
+        "/_private/lists/",
+        "/_private/lists/$listId/edit",
+        "/_private/lists/$listId/"
       ]
     },
     "/_public": {
@@ -265,10 +331,6 @@ export const routeTree = rootRoute
     },
     "/_private/dashboard": {
       "filePath": "_private/dashboard.tsx",
-      "parent": "/_private"
-    },
-    "/_private/foo": {
-      "filePath": "_private/foo.tsx",
       "parent": "/_private"
     },
     "/_public/forgot-password": {
@@ -286,6 +348,22 @@ export const routeTree = rootRoute
     "/_public/": {
       "filePath": "_public/index.tsx",
       "parent": "/_public"
+    },
+    "/_private/lists/new": {
+      "filePath": "_private/lists/new.tsx",
+      "parent": "/_private"
+    },
+    "/_private/lists/": {
+      "filePath": "_private/lists/index.tsx",
+      "parent": "/_private"
+    },
+    "/_private/lists/$listId/edit": {
+      "filePath": "_private/lists/$listId/edit.tsx",
+      "parent": "/_private"
+    },
+    "/_private/lists/$listId/": {
+      "filePath": "_private/lists/$listId/index.tsx",
+      "parent": "/_private"
     }
   }
 }
