@@ -18,9 +18,13 @@ import { Route as PublicRegistrationImport } from './routes/_public/registration
 import { Route as PublicLoginImport } from './routes/_public/login'
 import { Route as PublicForgotPasswordImport } from './routes/_public/forgot-password'
 import { Route as PrivateDashboardImport } from './routes/_private/dashboard'
+import { Route as PrivatePartiesIndexImport } from './routes/_private/parties/index'
 import { Route as PrivateListsIndexImport } from './routes/_private/lists/index'
+import { Route as PrivatePartiesNewImport } from './routes/_private/parties/new'
 import { Route as PrivateListsNewImport } from './routes/_private/lists/new'
+import { Route as PrivatePartiesPartyIdIndexImport } from './routes/_private/parties/$partyId/index'
 import { Route as PrivateListsListIdIndexImport } from './routes/_private/lists/$listId/index'
+import { Route as PrivatePartiesPartyIdEditImport } from './routes/_private/parties/$partyId/edit'
 import { Route as PrivateListsListIdEditImport } from './routes/_private/lists/$listId/edit'
 
 // Create/Update Routes
@@ -60,8 +64,18 @@ const PrivateDashboardRoute = PrivateDashboardImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
+const PrivatePartiesIndexRoute = PrivatePartiesIndexImport.update({
+  path: '/parties/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
 const PrivateListsIndexRoute = PrivateListsIndexImport.update({
   path: '/lists/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivatePartiesNewRoute = PrivatePartiesNewImport.update({
+  path: '/parties/new',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -70,8 +84,20 @@ const PrivateListsNewRoute = PrivateListsNewImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
+const PrivatePartiesPartyIdIndexRoute = PrivatePartiesPartyIdIndexImport.update(
+  {
+    path: '/parties/$partyId/',
+    getParentRoute: () => PrivateRoute,
+  } as any,
+)
+
 const PrivateListsListIdIndexRoute = PrivateListsListIdIndexImport.update({
   path: '/lists/$listId/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivatePartiesPartyIdEditRoute = PrivatePartiesPartyIdEditImport.update({
+  path: '/parties/$partyId/edit',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -140,11 +166,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateListsNewImport
       parentRoute: typeof PrivateImport
     }
+    '/_private/parties/new': {
+      id: '/_private/parties/new'
+      path: '/parties/new'
+      fullPath: '/parties/new'
+      preLoaderRoute: typeof PrivatePartiesNewImport
+      parentRoute: typeof PrivateImport
+    }
     '/_private/lists/': {
       id: '/_private/lists/'
       path: '/lists'
       fullPath: '/lists'
       preLoaderRoute: typeof PrivateListsIndexImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/parties/': {
+      id: '/_private/parties/'
+      path: '/parties'
+      fullPath: '/parties'
+      preLoaderRoute: typeof PrivatePartiesIndexImport
       parentRoute: typeof PrivateImport
     }
     '/_private/lists/$listId/edit': {
@@ -154,11 +194,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateListsListIdEditImport
       parentRoute: typeof PrivateImport
     }
+    '/_private/parties/$partyId/edit': {
+      id: '/_private/parties/$partyId/edit'
+      path: '/parties/$partyId/edit'
+      fullPath: '/parties/$partyId/edit'
+      preLoaderRoute: typeof PrivatePartiesPartyIdEditImport
+      parentRoute: typeof PrivateImport
+    }
     '/_private/lists/$listId/': {
       id: '/_private/lists/$listId/'
       path: '/lists/$listId'
       fullPath: '/lists/$listId'
       preLoaderRoute: typeof PrivateListsListIdIndexImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/parties/$partyId/': {
+      id: '/_private/parties/$partyId/'
+      path: '/parties/$partyId'
+      fullPath: '/parties/$partyId'
+      preLoaderRoute: typeof PrivatePartiesPartyIdIndexImport
       parentRoute: typeof PrivateImport
     }
   }
@@ -169,17 +223,25 @@ declare module '@tanstack/react-router' {
 interface PrivateRouteChildren {
   PrivateDashboardRoute: typeof PrivateDashboardRoute
   PrivateListsNewRoute: typeof PrivateListsNewRoute
+  PrivatePartiesNewRoute: typeof PrivatePartiesNewRoute
   PrivateListsIndexRoute: typeof PrivateListsIndexRoute
+  PrivatePartiesIndexRoute: typeof PrivatePartiesIndexRoute
   PrivateListsListIdEditRoute: typeof PrivateListsListIdEditRoute
+  PrivatePartiesPartyIdEditRoute: typeof PrivatePartiesPartyIdEditRoute
   PrivateListsListIdIndexRoute: typeof PrivateListsListIdIndexRoute
+  PrivatePartiesPartyIdIndexRoute: typeof PrivatePartiesPartyIdIndexRoute
 }
 
 const PrivateRouteChildren: PrivateRouteChildren = {
   PrivateDashboardRoute: PrivateDashboardRoute,
   PrivateListsNewRoute: PrivateListsNewRoute,
+  PrivatePartiesNewRoute: PrivatePartiesNewRoute,
   PrivateListsIndexRoute: PrivateListsIndexRoute,
+  PrivatePartiesIndexRoute: PrivatePartiesIndexRoute,
   PrivateListsListIdEditRoute: PrivateListsListIdEditRoute,
+  PrivatePartiesPartyIdEditRoute: PrivatePartiesPartyIdEditRoute,
   PrivateListsListIdIndexRoute: PrivateListsListIdIndexRoute,
+  PrivatePartiesPartyIdIndexRoute: PrivatePartiesPartyIdIndexRoute,
 }
 
 const PrivateRouteWithChildren =
@@ -210,9 +272,13 @@ export interface FileRoutesByFullPath {
   '/registration': typeof PublicRegistrationRoute
   '/': typeof PublicIndexRoute
   '/lists/new': typeof PrivateListsNewRoute
+  '/parties/new': typeof PrivatePartiesNewRoute
   '/lists': typeof PrivateListsIndexRoute
+  '/parties': typeof PrivatePartiesIndexRoute
   '/lists/$listId/edit': typeof PrivateListsListIdEditRoute
+  '/parties/$partyId/edit': typeof PrivatePartiesPartyIdEditRoute
   '/lists/$listId': typeof PrivateListsListIdIndexRoute
+  '/parties/$partyId': typeof PrivatePartiesPartyIdIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -223,9 +289,13 @@ export interface FileRoutesByTo {
   '/registration': typeof PublicRegistrationRoute
   '/': typeof PublicIndexRoute
   '/lists/new': typeof PrivateListsNewRoute
+  '/parties/new': typeof PrivatePartiesNewRoute
   '/lists': typeof PrivateListsIndexRoute
+  '/parties': typeof PrivatePartiesIndexRoute
   '/lists/$listId/edit': typeof PrivateListsListIdEditRoute
+  '/parties/$partyId/edit': typeof PrivatePartiesPartyIdEditRoute
   '/lists/$listId': typeof PrivateListsListIdIndexRoute
+  '/parties/$partyId': typeof PrivatePartiesPartyIdIndexRoute
 }
 
 export interface FileRoutesById {
@@ -238,9 +308,13 @@ export interface FileRoutesById {
   '/_public/registration': typeof PublicRegistrationRoute
   '/_public/': typeof PublicIndexRoute
   '/_private/lists/new': typeof PrivateListsNewRoute
+  '/_private/parties/new': typeof PrivatePartiesNewRoute
   '/_private/lists/': typeof PrivateListsIndexRoute
+  '/_private/parties/': typeof PrivatePartiesIndexRoute
   '/_private/lists/$listId/edit': typeof PrivateListsListIdEditRoute
+  '/_private/parties/$partyId/edit': typeof PrivatePartiesPartyIdEditRoute
   '/_private/lists/$listId/': typeof PrivateListsListIdIndexRoute
+  '/_private/parties/$partyId/': typeof PrivatePartiesPartyIdIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -253,9 +327,13 @@ export interface FileRouteTypes {
     | '/registration'
     | '/'
     | '/lists/new'
+    | '/parties/new'
     | '/lists'
+    | '/parties'
     | '/lists/$listId/edit'
+    | '/parties/$partyId/edit'
     | '/lists/$listId'
+    | '/parties/$partyId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
@@ -265,9 +343,13 @@ export interface FileRouteTypes {
     | '/registration'
     | '/'
     | '/lists/new'
+    | '/parties/new'
     | '/lists'
+    | '/parties'
     | '/lists/$listId/edit'
+    | '/parties/$partyId/edit'
     | '/lists/$listId'
+    | '/parties/$partyId'
   id:
     | '__root__'
     | '/_private'
@@ -278,9 +360,13 @@ export interface FileRouteTypes {
     | '/_public/registration'
     | '/_public/'
     | '/_private/lists/new'
+    | '/_private/parties/new'
     | '/_private/lists/'
+    | '/_private/parties/'
     | '/_private/lists/$listId/edit'
+    | '/_private/parties/$partyId/edit'
     | '/_private/lists/$listId/'
+    | '/_private/parties/$partyId/'
   fileRoutesById: FileRoutesById
 }
 
@@ -315,9 +401,13 @@ export const routeTree = rootRoute
       "children": [
         "/_private/dashboard",
         "/_private/lists/new",
+        "/_private/parties/new",
         "/_private/lists/",
+        "/_private/parties/",
         "/_private/lists/$listId/edit",
-        "/_private/lists/$listId/"
+        "/_private/parties/$partyId/edit",
+        "/_private/lists/$listId/",
+        "/_private/parties/$partyId/"
       ]
     },
     "/_public": {
@@ -353,16 +443,32 @@ export const routeTree = rootRoute
       "filePath": "_private/lists/new.tsx",
       "parent": "/_private"
     },
+    "/_private/parties/new": {
+      "filePath": "_private/parties/new.tsx",
+      "parent": "/_private"
+    },
     "/_private/lists/": {
       "filePath": "_private/lists/index.tsx",
+      "parent": "/_private"
+    },
+    "/_private/parties/": {
+      "filePath": "_private/parties/index.tsx",
       "parent": "/_private"
     },
     "/_private/lists/$listId/edit": {
       "filePath": "_private/lists/$listId/edit.tsx",
       "parent": "/_private"
     },
+    "/_private/parties/$partyId/edit": {
+      "filePath": "_private/parties/$partyId/edit.tsx",
+      "parent": "/_private"
+    },
     "/_private/lists/$listId/": {
       "filePath": "_private/lists/$listId/index.tsx",
+      "parent": "/_private"
+    },
+    "/_private/parties/$partyId/": {
+      "filePath": "_private/parties/$partyId/index.tsx",
       "parent": "/_private"
     }
   }
