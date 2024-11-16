@@ -8,6 +8,7 @@ const DEFAULT_AVATAR =
 const NAV_LINKS = [
     { label: 'Home', to: APP_ROUTES.DASHBOARD },
     { label: 'Lists', to: APP_ROUTES.LISTS },
+    { label: 'Parties', to: APP_ROUTES.PARTIES },
 ];
 
 const renderedLinks = NAV_LINKS.map(({ to, label }) => (

@@ -6,10 +6,12 @@ export const Route = createFileRoute('/_private/parties/')({
 
 function Parties() {
     return (
-        <div>
-            <article className="prose">
-                <h2>View all parties!!!</h2>
-            </article>
-        </div>
+        <>
+            <div>
+                <article className="prose">
+                    <h2>View all parties!!!</h2>
+                </article>
+            </div>
+        </>
     );
 }
