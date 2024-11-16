@@ -25,7 +25,9 @@ function Navbar() {
     return (
         <nav className="navbar bg-base-300">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl">Santa's Lil Helper</a>
+                <Link className="text-2xl font-bold" to="/dashboard">
+                    Santa's Lil Helper
+                </Link>
             </div>
 
             {user ? (

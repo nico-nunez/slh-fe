@@ -47,11 +47,19 @@ function Dashboard() {
                         <div className="divider mb-0"></div>
                         <article className="prose flex max-w-none items-center justify-between">
                             <h4>My Lists</h4>
-                            <button className="btn btn-ghost">New</button>
+                            <Link className="btn btn-ghost" to="/lists/new">
+                                New
+                            </Link>
                         </article>
                         <ul>
                             {data?.lists?.map((list) => (
-                                <Link key={list._id}>{list.title}</Link>
+                                <li
+                                    key={list._id}
+                                    className="flex justify-between"
+                                >
+                                    <Link>{list.title}</Link>
+                                    <span>edit</span>
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -61,11 +69,19 @@ function Dashboard() {
                         <div className="divider mb-0"></div>
                         <article className="prose flex max-w-none items-center justify-between">
                             <h4>My Parties</h4>
-                            <button className="btn btn-ghost">New</button>
+                            <Link className="btn btn-ghost" to="/parties/new">
+                                New
+                            </Link>
                         </article>
                         <ul>
                             {data?.parties?.map((party) => (
-                                <Link key={party._id}>{party.title}</Link>
+                                <li
+                                    key={party._id}
+                                    className="flex justify-between"
+                                >
+                                    <Link>{party.title}</Link>
+                                    <span>edit</span>
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -75,7 +91,6 @@ function Dashboard() {
                         <div className="divider mb-0"></div>
                         <article className="prose flex max-w-none items-center justify-between">
                             <h4>My Selections</h4>
-                            <button className="btn btn-ghost">New</button>
                         </article>
                         <ul>
                             <li>...selections</li>
