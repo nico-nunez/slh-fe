@@ -57,8 +57,18 @@ function Dashboard() {
                                     key={list._id}
                                     className="flex justify-between"
                                 >
-                                    <Link>{list.title}</Link>
-                                    <span>edit</span>
+                                    <Link
+                                        to={`/lists/$listId`}
+                                        params={{ listId: list._id }}
+                                    >
+                                        {list.title}
+                                    </Link>
+                                    <Link
+                                        to={`/lists/$listId/edit`}
+                                        params={{ listId: list._id }}
+                                    >
+                                        <i className="icon-edit" />
+                                    </Link>
                                 </li>
                             ))}
                         </ul>

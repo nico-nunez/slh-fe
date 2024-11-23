@@ -34,7 +34,7 @@ function ListCard({ data: list, openExpanded = false }: ListCardProps) {
             <div className="card-body collapse-content py-0">
                 <ul className="py-6 text-left">
                     {list.items.map((item) => (
-                        <ListItem data={item} />
+                        <ListItem data={item} key={item._id} />
                     ))}
                 </ul>
             </div>
