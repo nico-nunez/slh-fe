@@ -35,8 +35,13 @@ type GETPublicLists = {
     searchString: string;
 };
 
-type POSTPublishListBody = {
+type PublishListBody = {
     title: string;
     items: NewListItem[];
     public: boolean;
+};
+
+type POSTPublishList = {
+    message: string;
+    data: Omit<ListData, 'creator'> & { creator: string };
 };
