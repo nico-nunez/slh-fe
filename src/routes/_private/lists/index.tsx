@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import ListCard from '../../../components/Lists/List-Card';
 
 // ROUTING
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_private/lists/')({
     component: () => <Lists />,
@@ -32,7 +32,12 @@ function Lists() {
     return (
         <div>
             <article className="prose mx-auto py-8 text-center">
-                <h1>Christmas Lists</h1>
+                <div className="flex items-end justify-center gap-4">
+                    <h1 className="mb-0">Christmas Lists</h1>
+                    <Link to="/lists/new" className="btn btn-sm">
+                        New
+                    </Link>
+                </div>
             </article>
             <div className="flex flex-col items-center justify-center gap-8 md:flex-row md:flex-wrap md:items-start">
                 {renderedLists}
