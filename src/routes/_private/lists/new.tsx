@@ -30,11 +30,8 @@ function CreateList() {
     const mutate = useMutation({
         mutationKey: ['lists'],
         mutationFn: (newList: POSTPublishListBody) => publishNewList(newList),
-        onSuccess: (data) => {
-            console.log(data);
-            setErrorMsg('');
-            setTitle('');
-            setItems([]);
+        onSuccess: () => {
+            router.history.back();
         },
     });
 
