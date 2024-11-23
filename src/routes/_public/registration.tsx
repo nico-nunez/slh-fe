@@ -25,6 +25,8 @@ function Registration() {
         ...DEFAULT_STATE,
     });
 
+    console.log(state);
+
     // Handle form input changes
     const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         const { value, name } = evt.currentTarget;
@@ -39,7 +41,6 @@ function Registration() {
     // Handle form submission - TODO
     const onSubmit = (evt: React.FormEvent) => {
         evt.preventDefault();
-        console.log(state);
     };
 
     // JSX

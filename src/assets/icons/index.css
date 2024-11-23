@@ -1,4 +1,25 @@
+i {
+    cursor: pointer;
+    min-height: 16px;
+    min-width: 16px;
+}
+
 .icon-notification {
     content: url('./notification-bell-svgrepo-com.svg');
+    cursor: pointer;
+}
+
+.icon-edit {
+    content: url('./edit-3-svgrepo-com.svg');
+    cursor: pointer;
+}
+
+.icon-delete {
+    content: url('./delete-2-svgrepo-com.svg');
+    cursor: pointer;
+}
+
+.icon-close {
+    content: url('./close-svgrepo-com.svg');
     cursor: pointer;
 }

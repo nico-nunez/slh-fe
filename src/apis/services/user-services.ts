@@ -6,7 +6,5 @@ export const getDashboardData = async () => {
         API_ROUTES.USER_DASHBOARD
     );
 
-    console.log('data:', data);
-
     return data;
 };

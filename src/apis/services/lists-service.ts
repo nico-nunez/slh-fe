@@ -6,3 +6,9 @@ export const getPublicLists = async () => {
 
     return data;
 };
+
+export const publishNewList = async (body: POSTPublishListBody) => {
+    const { data } = await axios.post(API_ROUTES.PUBLISH_LIST, body);
+
+    return data;
+};

@@ -17,4 +17,7 @@ export const API_ROUTES = {
     get LISTS_PUBLIC() {
         return this.LISTS + '/public';
     },
+    get PUBLISH_LIST() {
+        return this.LISTS + '/publish';
+    },
 };

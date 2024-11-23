@@ -1,3 +1,9 @@
+type NewListItem = {
+    _id?: string;
+    description: string;
+    link: string;
+};
+
 type ListItemData = {
     description: string; // 'Toys';
     link: string; // '';
@@ -27,4 +33,10 @@ type GETPublicLists = {
     pages: PaginationData;
     searchBy: string;
     searchString: string;
+};
+
+type POSTPublishListBody = {
+    title: string;
+    items: NewListItem[];
+    public: boolean;
 };

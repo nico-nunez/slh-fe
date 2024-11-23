@@ -5,7 +5,7 @@ import { getPublicLists } from '../../../apis';
 import { useQuery } from '@tanstack/react-query';
 
 // COMPONENTS
-import ListCard from '../../../components/List-Card';
+import ListCard from '../../../components/Lists/List-Card';
 
 // ROUTING
 import { createFileRoute } from '@tanstack/react-router';
