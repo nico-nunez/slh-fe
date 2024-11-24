@@ -31,3 +31,10 @@ export const getListData = async (listId: string) => {
 
     return data;
 };
+
+export const deleteList = async (list: ListData) => {
+    const { data } = await axios.delete<{ message: string; id: string }>(
+        API_ROUTES.LISTS + `/${list._id}`
+    );
+    return data;
+};

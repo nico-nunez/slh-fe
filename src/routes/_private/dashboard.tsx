@@ -1,18 +1,54 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
 import { useAuthContext } from '../../contexts';
-import { useQuery } from '@tanstack/react-query';
-import { getDashboardData } from '../../apis';
 
+// API REQUESTS
+import { deleteList, getDashboardData } from '../../apis';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+// ROUTING
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { useState } from 'react';
+import ConfirmationModal from '../../components/Confirmation-Modal';
 export const Route = createFileRoute('/_private/dashboard')({
     component: () => <Dashboard />,
 });
 
 function Dashboard() {
     const { user } = useAuthContext();
+    const queryClient = useQueryClient();
+    const [deleteListData, setDeleteListData] = useState<ListData | null>(null);
+
     const { data } = useQuery({
         queryKey: [user?.id],
         queryFn: getDashboardData,
     });
+
+    const mutation = useMutation({
+        mutationFn: deleteList,
+        onSuccess: async () => {
+            if (user) {
+                queryClient.invalidateQueries({
+                    queryKey: [user.id],
+                    exact: true,
+                });
+            }
+        },
+    });
+
+    const onDeleteClick = (list: ListData) => {
+        setDeleteListData(list);
+    };
+
+    const onDeleteCancel = () => {
+        setDeleteListData(null);
+    };
+
+    const onDeleteConfirm = () => {
+        setDeleteListData(null);
+
+        if (deleteListData) {
+            mutation.mutate(deleteListData);
+        }
+    };
 
     return user ? (
         <section>
@@ -63,12 +99,20 @@ function Dashboard() {
                                     >
                                         {list.title}
                                     </Link>
-                                    <Link
-                                        to={`/lists/$listId/edit`}
-                                        params={{ listId: list._id }}
-                                    >
-                                        <i className="icon-edit" />
-                                    </Link>
+                                    <span>
+                                        <Link
+                                            to={`/lists/$listId/edit`}
+                                            params={{ listId: list._id }}
+                                        >
+                                            <i className="icon-edit" />
+                                        </Link>
+                                        <button
+                                            className="ms-2"
+                                            onClick={() => onDeleteClick(list)}
+                                        >
+                                            <i className="icon-delete h-5 w-5" />
+                                        </button>
+                                    </span>
                                 </li>
                             ))}
                         </ul>
@@ -108,6 +152,13 @@ function Dashboard() {
                     </div>
                 </section>
             </div>
+            <ConfirmationModal
+                isOpen={!!deleteListData}
+                header={`Delete - ${deleteListData?.title}`}
+                content="Are you sure you want to continue?"
+                onCancel={onDeleteCancel}
+                onConfirm={onDeleteConfirm}
+            />
         </section>
     ) : null;
 }
