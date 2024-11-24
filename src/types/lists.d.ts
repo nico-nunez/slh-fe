@@ -45,3 +45,8 @@ type POSTPublishList = {
     message: string;
     data: Omit<ListData, 'creator'> & { creator: string };
 };
+
+type PUTPublishList = {
+    message: string;
+    data: ListData;
+};

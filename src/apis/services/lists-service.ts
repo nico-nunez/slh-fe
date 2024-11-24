@@ -15,3 +15,19 @@ export const publishNewList = async (body: PublishListBody) => {
 
     return data;
 };
+
+export const updateList = async (listId: string, body: PublishListBody) => {
+    console.log(body);
+    const { data } = await axios.put<PUTPublishList>(
+        API_ROUTES.LISTS + `/${listId}`,
+        body
+    );
+
+    return data;
+};
+
+export const getListData = async (listId: string) => {
+    const { data } = await axios.get<ListData>(API_ROUTES.LISTS + `/${listId}`);
+
+    return data;
+};

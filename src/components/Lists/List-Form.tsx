@@ -34,8 +34,17 @@ function ListForm({ data, onCancel, onSubmit }: ListFormProps) {
 
     useEffect(() => {
         if (!data) return;
-        setFormState(data);
+        setFormState({
+            title: data.title,
+            items: data.items.map(({ description, link }) => ({
+                description,
+                link,
+            })),
+            public: data.public,
+        });
     }, [data]);
+
+    console.log(formState);
 
     // HANDLE ADD ITEM TO LIST
     const onAddItem = (item: NewListItem | Error) => {
