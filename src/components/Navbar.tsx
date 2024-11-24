@@ -24,7 +24,7 @@ function Navbar() {
 
     // JSX
     return (
-        <nav className="navbar bg-base-300">
+        <nav className="navbar sticky left-0 top-0 z-50 bg-base-300">
             <div className="flex-1">
                 <Link className="text-2xl font-bold" to="/dashboard">
                     Santa's Lil Helper
