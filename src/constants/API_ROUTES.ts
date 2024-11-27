@@ -2,6 +2,7 @@ export const API_ROUTES = {
     AUTH: '/api/auth',
     USERS: '/api/users',
     LISTS: '/api/lists',
+    PARTIES: '/api/parties',
 
     get LOGIN() {
         return this.AUTH + '/login';
