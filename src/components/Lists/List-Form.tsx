@@ -44,8 +44,6 @@ function ListForm({ data, onCancel, onSubmit }: ListFormProps) {
         });
     }, [data]);
 
-    console.log(formState);
-
     // HANDLE ADD ITEM TO LIST
     const onAddItem = (item: NewListItem | Error) => {
         if (item instanceof Error) {
@@ -182,7 +180,7 @@ function ListForm({ data, onCancel, onSubmit }: ListFormProps) {
                 {/* --- SUBMIT / CANCEL --- */}
                 <div className="card-actions items-baseline justify-between">
                     <button className="btn btn-ghost btn-sm" onClick={onCancel}>
-                        Discard
+                        {data ? 'Cancel' : 'Discard'}
                     </button>
                     <button
                         type="submit"

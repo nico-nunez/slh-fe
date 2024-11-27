@@ -10,10 +10,7 @@ import ListForm, {
 import { createFileRoute, useRouter } from '@tanstack/react-router';
 export const Route = createFileRoute('/_private/lists/$listId/edit')({
     component: () => <EditList />,
-    loader: async ({ params }) => {
-        console.log('params', params);
-        return getListData(params.listId);
-    },
+    loader: async ({ params }) => getListData(params.listId),
 });
 
 // EDIT LIST PAGE
