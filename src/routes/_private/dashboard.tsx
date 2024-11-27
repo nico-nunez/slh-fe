@@ -67,8 +67,8 @@ function Dashboard() {
                         <h4>Notifications</h4>
                     </article>
                     <ul>
-                        {user.notifications.map((notification) => (
-                            <li className="card">
+                        {user.notifications.map((notification, index) => (
+                            <li className="card" key={index}>
                                 <div className="card-body rounded">
                                     {notification.content}
                                 </div>
@@ -133,7 +133,12 @@ function Dashboard() {
                                     key={party._id}
                                     className="flex justify-between"
                                 >
-                                    <Link>{party.title}</Link>
+                                    <Link
+                                        to="/parties/$partyId"
+                                        params={{ partyId: party._id }}
+                                    >
+                                        {party.title}
+                                    </Link>
                                     <span>edit</span>
                                 </li>
                             ))}

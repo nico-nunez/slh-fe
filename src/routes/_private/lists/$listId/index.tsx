@@ -3,10 +3,7 @@ import { getListData } from '../../../../apis';
 import { createFileRoute } from '@tanstack/react-router';
 export const Route = createFileRoute('/_private/lists/$listId/')({
     component: () => <ViewList />,
-    loader: async ({ params }) => {
-        console.log(params);
-        return getListData(params.listId);
-    },
+    loader: async ({ params }) => getListData(params.listId),
 });
 
 function ViewList() {

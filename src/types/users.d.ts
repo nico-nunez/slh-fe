@@ -1,5 +1,5 @@
 type GETDashboardData = {
     lists: ListData[];
-    parties: PartyData[];
+    parties: DashboardPartyData[];
     selections: [];
 };

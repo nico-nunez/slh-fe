@@ -15,7 +15,10 @@ function Parties() {
     });
 
     const renderedParties = useMemo(
-        () => data?.map((partyData) => <PartyCard data={partyData} />),
+        () =>
+            data?.map((partyData) => (
+                <PartyCard data={partyData} key={partyData._id} />
+            )),
         [data]
     );
 
