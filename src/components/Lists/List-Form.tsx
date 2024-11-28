@@ -109,7 +109,7 @@ function ListForm({ data, onCancel, onSubmit }: ListFormProps) {
 
     // JSX
     return (
-        <div className="card fixed left-1/2 top-1/2 w-96 -translate-x-1/2 -translate-y-1/2 bg-base-100 shadow-xl">
+        <div className="card mx-auto bg-base-100 shadow-xl md:w-96">
             <div className="card-body">
                 <div className="card-title">New List</div>
                 {errorMsg ? (

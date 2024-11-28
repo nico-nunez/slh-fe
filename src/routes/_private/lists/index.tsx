@@ -23,9 +23,7 @@ function Lists() {
 
     const renderedLists = useMemo(
         () =>
-            data?.lists.map((list) => (
-                <ListCard data={list} key={list._id} openExpanded={true} />
-            )),
+            data?.lists.map((list) => <ListCard data={list} key={list._id} />),
         [data?.lists]
     );
 

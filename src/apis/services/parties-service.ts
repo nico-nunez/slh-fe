@@ -9,7 +9,9 @@ export const getPublicParties = async () => {
 };
 
 export const getPartyData = async (partyId: string) => {
-    const { data } = await apiInstance.get(API_ROUTES.PARTIES + `/${partyId}`);
+    const { data } = await apiInstance.get<GETPartyData>(
+        API_ROUTES.PARTIES + `/${partyId}`
+    );
 
     return data;
 };
