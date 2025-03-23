@@ -34,7 +34,7 @@ function Navbar() {
             {user ? (
                 <div className="flex gap-3">
                     <div className="relative hidden md:block">
-                        <i className="icon-notification -translate-x-2 translate-y-1" />
+                        <i className="icon-notification h-7 w-7 -translate-x-2 translate-y-1" />
                         {user.notifications.length ? (
                             <span className="absolute -right-1 -top-1 block h-6 w-6 rounded-full bg-white text-center text-sm">
                                 <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">

@@ -84,3 +84,9 @@ type GETPartyData = {
     excludeUserList: PartyMember[];
     selection: PartyMember | null;
 };
+
+type UpdateMembersBody = {
+    id: string;
+    secret?: string;
+    members?: PartyMember[];
+};

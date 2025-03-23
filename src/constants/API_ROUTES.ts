@@ -2,7 +2,6 @@ export const API_ROUTES = {
     AUTH: '/api/auth',
     USERS: '/api/users',
     LISTS: '/api/lists',
-    PARTIES: '/api/parties',
 
     get LOGIN() {
         return this.AUTH + '/login';
@@ -20,5 +19,10 @@ export const API_ROUTES = {
     },
     get PUBLISH_LIST() {
         return this.LISTS + '/publish';
+    },
+
+    PARTIES: '/api/parties',
+    get UPDATE_PARTY_MEMBERS() {
+        return this.PARTIES + '/members/update';
     },
 };

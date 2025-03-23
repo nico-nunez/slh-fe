@@ -40,12 +40,17 @@ const onSuccess = (data: any) => {
 
 // HANDLE REQUEST ERRORS (ERROR TOAST)
 const onError = (error: Error) => {
+    const { logout } = useAuthContext();
     let message =
         error.message ||
         'An unexpected error occurred.  Please contact support.';
 
     if (axios.isAxiosError<{ errorMessage: string }>(error)) {
         message = error.response?.data.errorMessage || message;
+
+        if (error.response?.status === 403) {
+            logout();
+        }
     }
     toast.error(message);
 };

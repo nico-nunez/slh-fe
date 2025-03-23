@@ -1,7 +1,7 @@
 i {
     cursor: pointer;
-    min-height: 16px;
-    min-width: 16px;
+    height: 16px;
+    width: 16px;
 }
 
 .icon-notification {
@@ -22,4 +22,8 @@ i {
 .icon-close {
     content: url('./close-svgrepo-com.svg');
     cursor: pointer;
+}
+
+.icon-copy {
+    content: url('./copy-svgrepo-com.svg');
 }
